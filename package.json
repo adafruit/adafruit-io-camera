@@ -1,0 +1,33 @@
+{
+  "name": "adafruit-io-picam",
+  "version": "0.1.0",
+  "description": "Push Raspberry Pi camera images to Adafruit IO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adafruit/adafruit-io-camera.git"
+  },
+  "keywords": [
+    "adafruit",
+    "io",
+    "aio",
+    "raspberry",
+    "pi",
+    "raspi",
+    "camera"
+  ],
+  "author": "Todd Treece <todd@uniontownlabs.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adafruit/adafruit-io-camera/issues"
+  },
+  "homepage": "https://github.com/adafruit/adafruit-io-camera#readme",
+  "dependencies": {
+    "adafruit-io": "^4.0.5",
+    "motion": "^0.2.2",
+    "raspicam": "^0.2.13"
+  }
+}
