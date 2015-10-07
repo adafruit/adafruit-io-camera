@@ -27,6 +27,7 @@
   "homepage": "https://github.com/adafruit/adafruit-io-camera#readme",
   "dependencies": {
     "adafruit-io": "^4.0.5",
+    "base64-stream": "^0.1.2",
     "motion": "^0.2.2",
     "raspicam": "^0.2.13"
   }
