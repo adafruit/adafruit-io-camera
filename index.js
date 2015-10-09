@@ -11,8 +11,17 @@ const aio = new AdafruitIO(
 );
 
 function ready() {
-  const camera = new Camera();
-  camera.pipe(aio.Feeds.writable('picam'));
+
+  const camera = new Camera(),
+        motion = new Motion(),
+        feed = aio.Feeds.writable('picam');
+
+  camera.pipe(motion);
+
+  motion.on('data', function(img) {
+    feed.write(img.toString('base64'));
+  });
+
 }
 
 function error(err) {
