@@ -2,8 +2,7 @@
 
 const Motion = require('motion').Stream,
       Camera = require('./lib/camera'),
-      AdafruitIO = require('adafruit-io'),
-      base64 = require('base64-stream');
+      AdafruitIO = require('adafruit-io');
 
 const aio = new AdafruitIO(
   process.env.AIO_USERNAME,
@@ -12,14 +11,8 @@ const aio = new AdafruitIO(
 );
 
 function ready() {
-
-  const camera = new Camera(),
-        motion = new Motion();
-
-  camera.pipe(motion)
-        .pipe(base64.encode())
-        .pipe(aio.feeds.writable(process.env.AIO_FEED || 'picam'));
-
+  const camera = new Camera();
+  camera.pipe(aio.Feeds.writable('picam'));
 }
 
 function error(err) {
