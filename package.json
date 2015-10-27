@@ -28,6 +28,8 @@
   "dependencies": {
     "adafruit-io": "^4.1.3",
     "motion": "floriandotorg/motion",
-    "raspicam": "rammerhammer/node-raspicam"
+    "raspicam": "rammerhammer/node-raspicam",
+    "winston": "^1.1.1",
+    "yargs": "^3.27.0"
   }
 }

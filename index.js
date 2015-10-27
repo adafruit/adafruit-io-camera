@@ -2,23 +2,45 @@
 
 const Motion = require('motion').Stream,
       Camera = require('./lib/camera'),
-      AdafruitIO = require('adafruit-io');
+      AdafruitIO = require('adafruit-io'),
+      path = require('path'),
+      env = process.env;
 
 const aio = new AdafruitIO(
-  process.env.AIO_USERNAME,
-  process.env.AIO_KEY,
+  env.AIO_USERNAME,
+  env.AIO_KEY,
   { success: ready, failure: error }
 );
 
 function ready() {
 
-  const camera = new Camera(),
-        motion = new Motion(),
-        feed = aio.Feeds.writable('picam');
+  const feed = aio.Feeds.writable(env.AIO_CAMFEED || 'picam');
 
-  camera.pipe(motion);
+  const camera = new Camera({
+    vflip: env.CAM_VFLIP ? true : false,
+    hflip: env.CAM_HFLIP ? true : false,
+    timelapse: env.CAM_RATE ? parseInt(env.CAM_RATE) : 2000
+  });
 
-  motion.on('data', function(img) {
+  if(env.MOTION) {
+
+    const motion = new Motion({
+      threshold: env.MOTION_THRESH ? parseInt(env.MOTION_THRESH) : 0x15,
+      minChange: env.MOTION_MINCHANGE ? parseInt(env.MOTION_MINCHANGE) : 10,
+      minimumMotion: env.MOTION_MINSECONDS ? parseInt(env.MOTION_MINSECONDS) : 1,
+      prebuffer: 0,
+      postbuffer: 0
+    });
+
+    camera.pipe(motion);
+
+    return motion.on('data', (img) => {
+      feed.write(img.toString('base64'));
+    });
+
+  }
+
+  return camera.on('data', (img) => {
     feed.write(img.toString('base64'));
   });
 
