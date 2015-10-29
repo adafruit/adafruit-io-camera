@@ -30,7 +30,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "adafruit-io": "^4.2.3",
+    "adafruit-io": "^4.2.4",
     "dotenv": "^1.2.0",
     "motion": "floriandotorg/motion",
     "raspicam": "rammerhammer/node-raspicam",
