@@ -1,6 +1,6 @@
 {
   "name": "adafruit-io-camera",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Push Raspberry Pi camera images to Adafruit IO",
   "bin": {
     "adafruit-io": "./cli.js"
