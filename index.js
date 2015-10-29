@@ -19,7 +19,7 @@ function ready() {
   const camera = new Camera({
     vflip: env.CAM_VFLIP ? true : false,
     hflip: env.CAM_HFLIP ? true : false,
-    timelapse: env.CAM_RATE ? parseInt(env.CAM_RATE) : 2000
+    timelapse: env.CAM_RATE ? parseInt(env.CAM_RATE) * 1000 : 2000
   });
 
   if(env.MOTION) {
