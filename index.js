@@ -13,13 +13,16 @@ const aio = new AdafruitIO(
 
 function ready() {
 
-  const feed = aio.Feeds.writable(env.AIO_CAMFEED || 'picam');
+  const feed = aio.Feeds.writable(env.AIO_CAMFEED || 'picam'),
+        camera_options = {};
 
-  const camera = new Camera({
-    vflip: (env.CAM_VFLIP === 'true' || env.CAM_VFLIP === '1'),
-    hflip: (env.CAM_HFLIP === 'true' || env.CAM_HFLIP === '1'),
-    timelapse: env.CAM_RATE ? parseInt(env.CAM_RATE) * 1000 : 2000
-  });
+  let camera = false;
+
+  if(env.CAM_VFLIP === 'true' || env.CAM_VFLIP === '1')
+    camera_options.vflip = true;
+
+  if(env.CAM_HFLIP === 'true' || env.CAM_HFLIP === '1')
+    camera_options.hflip = true;
 
   if(env.MOTION === 'true' || env.MOTION === '1') {
 
@@ -31,6 +34,8 @@ function ready() {
       postbuffer: 0
     });
 
+    camera_options.timelapse = env.CAM_RATE ? parseInt(env.CAM_RATE) * 1000 : 2000;
+    camera = new Camera(camera_options);
     camera.pipe(motion);
 
     return motion.on('data', (img) => {
@@ -38,6 +43,9 @@ function ready() {
     });
 
   }
+
+  camera_options.timelapse = env.CAM_RATE ? parseInt(env.CAM_RATE) * 1000 : 5000;
+  camera = new Camera(camera_options);
 
   return camera.on('data', (img) => {
     feed.write(img.toString('base64'));
