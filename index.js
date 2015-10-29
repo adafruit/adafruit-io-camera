@@ -8,7 +8,12 @@ const Motion = require('motion').Stream,
 const aio = new AdafruitIO(
   env.AIO_CLIENT_USER,
   env.AIO_CLIENT_KEY,
-  { success: ready, failure: error }
+  {
+    host: env.AIO_CLIENT_HOST || 'io.adafruit.com',
+    port: env.AIO_CLIENT_PORT || 80,
+    success: ready,
+    failure: error
+  }
 );
 
 function ready() {
@@ -55,5 +60,6 @@ function ready() {
 
 function error(err) {
   console.error(err);
+  process.exit(1);
 }
 
