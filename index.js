@@ -3,12 +3,11 @@
 const Motion = require('motion').Stream,
       Camera = require('./lib/camera'),
       AdafruitIO = require('adafruit-io'),
-      path = require('path'),
       env = process.env;
 
 const aio = new AdafruitIO(
-  env.AIO_USERNAME,
-  env.AIO_KEY,
+  env.AIO_CLIENT_USER,
+  env.AIO_CLIENT_KEY,
   { success: ready, failure: error }
 );
 
@@ -17,12 +16,12 @@ function ready() {
   const feed = aio.Feeds.writable(env.AIO_CAMFEED || 'picam');
 
   const camera = new Camera({
-    vflip: env.CAM_VFLIP ? true : false,
-    hflip: env.CAM_HFLIP ? true : false,
+    vflip: (env.CAM_VFLIP === 'true' || env.CAM_VFLIP === '1'),
+    hflip: (env.CAM_HFLIP === 'true' || env.CAM_HFLIP === '1'),
     timelapse: env.CAM_RATE ? parseInt(env.CAM_RATE) * 1000 : 2000
   });
 
-  if(env.MOTION) {
+  if(env.MOTION === 'true' || env.MOTION === '1') {
 
     const motion = new Motion({
       threshold: env.MOTION_THRESH ? parseInt(env.MOTION_THRESH) : 0x15,

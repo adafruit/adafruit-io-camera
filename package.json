@@ -1,7 +1,8 @@
 {
-  "name": "adafruit-io-picam",
-  "version": "0.1.0",
+  "name": "adafruit-io-camera",
+  "version": "1.0.0",
   "description": "Push Raspberry Pi camera images to Adafruit IO",
+  "bin": { "adafruit-io": "./cli.js" },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +26,9 @@
     "url": "https://github.com/adafruit/adafruit-io-camera/issues"
   },
   "homepage": "https://github.com/adafruit/adafruit-io-camera#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "adafruit-io": "^4.2.3",
     "dotenv": "^1.2.0",
